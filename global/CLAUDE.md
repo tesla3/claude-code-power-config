@@ -67,8 +67,16 @@
 - Use logging over print for diagnostic output
 - Validate at boundaries (CLI args, API inputs), trust internal data
 
+## Running Code in Claude Code Sessions
+- IMPORTANT: Claude Code's shell does NOT source .zshrc, so `micromamba activate` will fail
+- Use `micromamba run -n <env-name> <command>` to run commands in a micromamba env
+  - Example: `micromamba run -n myproject pytest -xvs`
+  - Example: `micromamba run -n myproject python -m mymodule`
+  - Example: `micromamba run -n myproject pip install -r requirements.txt`
+- To find which env to use: `micromamba env list` and ask the user if unclear
+- For installing into an env: `micromamba run -n <env-name> pip install <package>`
+
 ## Key Gotchas
-- IMPORTANT: Always check if a micromamba env is active before running commands
 - Each project/task has its own micromamba env -- do not install into base
 - Check pyproject.toml for project-specific ruff/pyright config before assuming defaults
 - If tests fail after changes, fix them before moving on -- never leave broken tests
