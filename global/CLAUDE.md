@@ -10,7 +10,6 @@
 
 ## Code Style
 - IMPORTANT: All code MUST pass `ruff check` and `ruff format` before committing
-- Use `from __future__ import annotations` for modern type syntax
 
 ## Git Conventions
 - IMPORTANT: Use conventional commits: `type(scope): description`
