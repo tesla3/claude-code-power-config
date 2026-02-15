@@ -70,9 +70,21 @@ Removes symlinks. Does not revert settings.json (prints manual cleanup instructi
 ### Denied (blocked)
 `rm -rf`, `sudo`, `curl|bash`, `wget|bash`, `git push --force`, `git reset --hard`, reading `~/.ssh`, `~/.aws`, `~/.gnupg`, `.env` files
 
+## Cross-Device Sync (chezmoi)
+
+This repo integrates with [chezmoi](https://www.chezmoi.io/) for dotfile management. The chezmoi source at `~/.local/share/chezmoi` contains symlink templates that point `~/.claude/CLAUDE.md`, `~/.claude/statusline.sh`, and the plugin directory back into this repo.
+
+Workflow:
+1. Edit files in this repo (e.g. `global/CLAUDE.md`)
+2. `git commit && git push` (push directly to main)
+3. On other machines: `chezmoi update -v` to pull and apply
+4. If you edited a managed file directly (e.g. `~/.claude/settings.json`), run `chezmoi re-add <file>` to sync the source
+
 ## Requirements
 
 - [Claude Code](https://claude.ai/claude-code) CLI installed
 - `jq` (for install script settings merge)
 - `ruff` (for auto-format hook)
+- `pyright` (for type checking)
 - `gh` CLI (for PR/issue commands)
+- `chezmoi` (optional, for cross-device sync)
