@@ -8,7 +8,7 @@
 
 ## Stack
 - Python 3.14, micromamba for per-project/per-task environments
-- pytest for testing, ruff for linting/formatting, mypy for type checking
+- pytest for testing, ruff for linting/formatting, pyright for type checking
 - Git + GitHub (gh CLI) for version control
 
 ## Build & Run Commands
@@ -21,7 +21,7 @@
 - Test verbose: `pytest -xvs`
 - Lint: `ruff check .`
 - Format: `ruff format .`
-- Type check: `mypy .`
+- Type check: `pyright .`
 - Lint + fix: `ruff check --fix .`
 
 ## Code Style
@@ -70,5 +70,5 @@
 ## Key Gotchas
 - IMPORTANT: Always check if a micromamba env is active before running commands
 - Each project/task has its own micromamba env -- do not install into base
-- Check pyproject.toml for project-specific ruff/mypy config before assuming defaults
+- Check pyproject.toml for project-specific ruff/pyright config before assuming defaults
 - If tests fail after changes, fix them before moving on -- never leave broken tests
