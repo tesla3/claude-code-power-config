@@ -75,8 +75,8 @@ SETTINGS_PATCH=$(cat <<'PATCH_EOF'
 {
   "permissions": {
     "allow": [
-      "Bash(poetry *)",
       "Bash(pytest *)",
+      "Bash(micromamba *)",
       "Bash(ruff *)",
       "Bash(mypy *)",
       "Bash(python -m *)",
@@ -177,7 +177,7 @@ echo "What was configured:"
 echo "  - Plugin installed at ~/.claude/plugins/power-config/"
 echo "  - Global CLAUDE.md at ~/.claude/CLAUDE.md"
 echo "  - Statusline at ~/.claude/statusline.sh"
-echo "  - Permission allowlists for: poetry, pytest, ruff, mypy, git, gh"
+echo "  - Permission allowlists for: pytest, micromamba, ruff, mypy, git, gh"
 echo "  - Permission denylists for: rm -rf, sudo, force push, secrets"
 echo "  - Env vars: autocompact at 80%, telemetry disabled"
 echo ""

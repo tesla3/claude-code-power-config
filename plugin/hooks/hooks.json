@@ -18,7 +18,7 @@
         "tool": ["Write", "Edit"],
         "file_pattern": "**/test_*.py"
       },
-      "command": "cd \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\" && poetry run pytest \"$CLAUDE_FILE_PATH\" -x --tb=short 2>/dev/null || pytest \"$CLAUDE_FILE_PATH\" -x --tb=short 2>/dev/null || true"
+      "command": "cd \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\" && pytest \"$CLAUDE_FILE_PATH\" -x --tb=short 2>/dev/null || true"
     },
     {
       "name": "Block destructive commands",

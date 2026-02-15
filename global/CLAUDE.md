@@ -1,20 +1,28 @@
 # Global Claude Code Configuration
 
+## Preferences
+- I use vim, tmux, and the terminal for everything. No GUI suggestions.
+- Prefer CLI tools and shell commands over graphical alternatives.
+- When suggesting file edits, give me the exact content, not vague descriptions.
+- I work across Mac and Linux -- note when a command is OS-specific.
+
 ## Stack
-- Python 3.13, Poetry for dependency management
+- Python 3.14, micromamba for per-project/per-task environments
 - pytest for testing, ruff for linting/formatting, mypy for type checking
 - Git + GitHub (gh CLI) for version control
 
 ## Build & Run Commands
-- Install deps: `poetry install`
-- Run app: `poetry run python -m <module>`
-- Test all: `poetry run pytest`
-- Test single: `poetry run pytest path/to/test_file.py -x`
-- Test verbose: `poetry run pytest -xvs`
-- Lint: `poetry run ruff check .`
-- Format: `poetry run ruff format .`
-- Type check: `poetry run mypy .`
-- Lint + fix: `poetry run ruff check --fix .`
+- Create env: `micromamba create -n <name> python=3.14 -y`
+- Activate env: `micromamba activate <name>`
+- Install deps: `pip install -r requirements.txt`
+- Run app: `python -m <module>`
+- Test all: `pytest`
+- Test single: `pytest path/to/test_file.py -x`
+- Test verbose: `pytest -xvs`
+- Lint: `ruff check .`
+- Format: `ruff format .`
+- Type check: `mypy .`
+- Lint + fix: `ruff check --fix .`
 
 ## Code Style
 - IMPORTANT: All code MUST pass `ruff check` and `ruff format` before committing
@@ -46,7 +54,7 @@
 - Prefer composition over inheritance
 
 ## Testing
-- YOU MUST run `poetry run pytest` before committing to verify tests pass
+- YOU MUST run `pytest` before committing to verify tests pass
 - Write tests for all new functionality
 - Use pytest fixtures for shared test setup
 - Use parametrize for testing multiple inputs
@@ -60,7 +68,7 @@
 - Validate at boundaries (CLI args, API inputs), trust internal data
 
 ## Key Gotchas
-- IMPORTANT: Always check if a virtualenv exists before running commands
-- When using Poetry, prefix commands with `poetry run` or activate the venv
+- IMPORTANT: Always check if a micromamba env is active before running commands
+- Each project/task has its own micromamba env -- do not install into base
 - Check pyproject.toml for project-specific ruff/mypy config before assuming defaults
 - If tests fail after changes, fix them before moving on -- never leave broken tests

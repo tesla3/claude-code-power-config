@@ -65,7 +65,7 @@ Removes symlinks. Does not revert settings.json (prints manual cleanup instructi
 ## Permissions
 
 ### Allowed (auto-approved)
-`poetry`, `pytest`, `ruff`, `mypy`, `python -m`, `git` (status, diff, log, add, commit, push, checkout, branch), `gh` (pr, issue)
+`pytest`, `micromamba`, `ruff`, `mypy`, `python -m`, `git` (status, diff, log, add, commit, push, checkout, branch), `gh` (pr, issue)
 
 ### Denied (blocked)
 `rm -rf`, `sudo`, `curl|bash`, `wget|bash`, `git push --force`, `git reset --hard`, reading `~/.ssh`, `~/.aws`, `~/.gnupg`, `.env` files

@@ -38,12 +38,12 @@ Use Grep and Glob to find relevant code:
 ### 5. Write/update tests
 - Add tests that reproduce the bug (they should fail without the fix)
 - Verify the fix resolves the issue
-- Run the full test suite: `poetry run pytest`
+- Run the full test suite: `pytest`
 
 ### 6. Verify quality
-- Run linter: `poetry run ruff check .`
-- Run formatter: `poetry run ruff format --check .`
-- Run type checker: `poetry run mypy .` (if configured)
+- Run linter: `ruff check .`
+- Run formatter: `ruff format --check .`
+- Run type checker: `mypy .` (if configured)
 
 ### 7. Commit and push
 - Stage changes: `git add <specific files>`

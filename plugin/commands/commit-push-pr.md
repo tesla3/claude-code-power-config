@@ -15,4 +15,4 @@ Commit all staged changes, push, and create a PR. Follow this workflow exactly:
 
 If there are no changes to commit, say so and stop.
 If the current branch is main/master, say so and stop -- create a feature branch first.
-If tests haven't been run, run `poetry run pytest` (or `pytest`) before committing.
+If tests haven't been run, run `pytest` before committing.
