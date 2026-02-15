@@ -1,0 +1,6 @@
+{
+  "name": "power-config",
+  "version": "1.0.0",
+  "description": "Production-grade Claude Code config: commands, agents, skills, and hooks for Python development",
+  "author": "sprite"
+}

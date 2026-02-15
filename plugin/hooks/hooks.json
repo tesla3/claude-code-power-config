@@ -1,0 +1,42 @@
+{
+  "hooks": [
+    {
+      "name": "Auto-format Python files",
+      "description": "Runs ruff format + ruff check --fix on Python files after Write or Edit",
+      "event": "PostToolUse",
+      "matcher": {
+        "tool": ["Write", "Edit"],
+        "file_pattern": "**/*.py"
+      },
+      "command": "ruff format \"$CLAUDE_FILE_PATH\" && ruff check --fix \"$CLAUDE_FILE_PATH\" 2>/dev/null || true"
+    },
+    {
+      "name": "Auto-test on test file change",
+      "description": "Runs pytest on the changed test file after Write or Edit",
+      "event": "PostToolUse",
+      "matcher": {
+        "tool": ["Write", "Edit"],
+        "file_pattern": "**/test_*.py"
+      },
+      "command": "cd \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\" && poetry run pytest \"$CLAUDE_FILE_PATH\" -x --tb=short 2>/dev/null || pytest \"$CLAUDE_FILE_PATH\" -x --tb=short 2>/dev/null || true"
+    },
+    {
+      "name": "Block destructive commands",
+      "description": "Prevents rm -rf, force push to main, sudo, and pipe-to-bash",
+      "event": "PreToolUse",
+      "matcher": {
+        "tool": ["Bash"]
+      },
+      "command": "INPUT=$(cat); CMD=$(echo \"$INPUT\" | jq -r '.tool_input.command // empty'); if echo \"$CMD\" | grep -qE '(rm\\s+-rf\\s+/|rm\\s+-rf\\s+~|sudo\\s|git\\s+push\\s+--force\\s+(origin\\s+)?main|git\\s+push\\s+-f\\s+(origin\\s+)?main|git\\s+reset\\s+--hard|curl.*\\|\\s*bash|wget.*\\|\\s*bash)'; then echo \"BLOCKED: Destructive command detected: $CMD\" >&2; exit 2; fi"
+    },
+    {
+      "name": "Branch protection",
+      "description": "Blocks file edits when on the main or master branch",
+      "event": "PreToolUse",
+      "matcher": {
+        "tool": ["Write", "Edit"]
+      },
+      "command": "BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); if [ \"$BRANCH\" = \"main\" ] || [ \"$BRANCH\" = \"master\" ]; then echo \"BLOCKED: Cannot edit files on $BRANCH branch. Create a feature branch first.\" >&2; exit 2; fi"
+    }
+  ]
+}
