@@ -43,7 +43,7 @@ Use Grep and Glob to find relevant code:
 ### 6. Verify quality
 - Run linter: `ruff check .`
 - Run formatter: `ruff format --check .`
-- Run type checker: `mypy .` (if configured)
+- Run type checker: `pyright .` (if configured)
 
 ### 7. Commit and push
 - Stage changes: `git add <specific files>`
