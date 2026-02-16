@@ -16,8 +16,7 @@
   - Types: feat, fix, refactor, test, docs, chore, ci, perf
   - Scope is optional but encouraged
   - Description is lowercase, no period, imperative mood
-- Create feature branches: `feat/description` or `fix/description`
-- YOU MUST never commit directly to main -- always use a feature branch
+- Commit and push directly to main -- no feature branches or PRs
 
 ## Architecture Patterns
 - Flat module structure preferred unless project exceeds ~10 files

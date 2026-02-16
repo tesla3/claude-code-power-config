@@ -28,15 +28,6 @@
         "tool": ["Bash"]
       },
       "command": "INPUT=$(cat); CMD=$(echo \"$INPUT\" | jq -r '.tool_input.command // empty'); if echo \"$CMD\" | grep -qE '(rm\\s+-rf\\s+/|rm\\s+-rf\\s+~|sudo\\s|git\\s+push\\s+--force\\s+(origin\\s+)?main|git\\s+push\\s+-f\\s+(origin\\s+)?main|git\\s+reset\\s+--hard|curl.*\\|\\s*bash|wget.*\\|\\s*bash)'; then echo \"BLOCKED: Destructive command detected: $CMD\" >&2; exit 2; fi"
-    },
-    {
-      "name": "Branch protection",
-      "description": "Blocks file edits when on the main or master branch",
-      "event": "PreToolUse",
-      "matcher": {
-        "tool": ["Write", "Edit"]
-      },
-      "command": "BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); if [ \"$BRANCH\" = \"main\" ] || [ \"$BRANCH\" = \"master\" ]; then echo \"BLOCKED: Cannot edit files on $BRANCH branch. Create a feature branch first.\" >&2; exit 2; fi"
     }
   ]
 }
