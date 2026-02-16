@@ -27,7 +27,7 @@ Production-grade Claude Code configuration as a portable plugin + global setup. 
 ### Global Config
 
 - **CLAUDE.md**: Python-focused defaults (stack, style, conventions)
-- **settings.json**: Permission allowlists + denylists, env vars, statusline
+- **settings.json**: Permission deny-list (allow-all Bash + block destructive), env vars, statusline
 - **statusline.sh**: Color-coded context window monitor
 
 ## Install
@@ -42,7 +42,7 @@ The install script will:
 1. Symlink the plugin to `~/.claude/plugins/power-config/`
 2. Symlink `CLAUDE.md` to `~/.claude/CLAUDE.md`
 3. Symlink `statusline.sh` to `~/.claude/statusline.sh`
-4. Merge permission allow/deny lists into `~/.claude/settings.json`
+4. Merge permissions (allow-all Bash + deny destructive) into `~/.claude/settings.json`
 5. Set env vars (autocompact, telemetry)
 6. Offer to disable `bypassPermissions` (if enabled)
 
@@ -64,11 +64,19 @@ Removes symlinks. Does not revert settings.json (prints manual cleanup instructi
 
 ## Permissions
 
-### Allowed (auto-approved)
-`pytest`, `micromamba`, `ruff`, `pyright`, `python -m`, `git` (status, diff, log, add, commit, push, checkout, branch), `gh` (pr, issue)
+Uses a **deny-list approach**: all Bash commands are auto-approved, with two defense layers blocking destructive operations.
 
-### Denied (blocked)
+### Layer 1: Permission deny rules (settings.json)
 `rm -rf`, `sudo`, `curl|bash`, `wget|bash`, `git push --force`, `git reset --hard`, reading `~/.ssh`, `~/.aws`, `~/.gnupg`, `.env` files
+
+### Layer 2: PreToolUse hook (hooks.json)
+Regex inspection of every Bash command before execution. Blocks `rm -rf /`, `rm -rf ~`, `sudo`, force push to main, `git reset --hard`, `curl|bash`, `wget|bash`.
+
+### Why this works
+- Deny rules **always beat** allow rules in Claude Code's permission system
+- The hook runs **before** execution and exits with code 2 to block
+- Both layers run independently -- a command must pass both to execute
+- This eliminates prompts for compound commands (loops, pipes, subshells) that don't match individual tool patterns
 
 ## Cross-Device Sync (chezmoi)
 

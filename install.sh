@@ -75,21 +75,9 @@ SETTINGS_PATCH=$(cat <<'PATCH_EOF'
 {
   "permissions": {
     "allow": [
-      "Bash(pytest *)",
-      "Bash(micromamba *)",
-      "Bash(ruff *)",
-      "Bash(pyright *)",
-      "Bash(python -m *)",
-      "Bash(git status*)",
-      "Bash(git diff*)",
-      "Bash(git log*)",
-      "Bash(git add *)",
-      "Bash(git commit *)",
-      "Bash(git push *)",
-      "Bash(git checkout *)",
-      "Bash(git branch *)",
-      "Bash(gh pr *)",
-      "Bash(gh issue *)"
+      "Bash",
+      "WebSearch",
+      "WebFetch"
     ],
     "deny": [
       "Bash(rm -rf *)",
@@ -177,8 +165,8 @@ echo "What was configured:"
 echo "  - Plugin installed at ~/.claude/plugins/power-config/"
 echo "  - Global CLAUDE.md at ~/.claude/CLAUDE.md"
 echo "  - Statusline at ~/.claude/statusline.sh"
-echo "  - Permission allowlists for: pytest, micromamba, ruff, pyright, git, gh"
-echo "  - Permission denylists for: rm -rf, sudo, force push, secrets"
+echo "  - Permissions: allow all Bash + deny destructive (defense-in-depth with hooks)"
+echo "  - Deny list: rm -rf, sudo, force push, hard reset, pipe-to-bash, secrets"
 echo "  - Env vars: autocompact at 80%, telemetry disabled"
 echo ""
 echo "Available commands:  /commit-push-pr  /catchup  /review"

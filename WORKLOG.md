@@ -1,5 +1,37 @@
 # Worklog
 
+## 2026-02-15 -- Switch to deny-list permissions (allow all Bash)
+
+### Problem
+Individual `Bash(git status*)`, `Bash(pytest *)`, etc. allow rules only match commands
+that start with that exact tool. Compound commands like `for dir in ...; do git pull; done`
+don't match any allow rule and trigger permission prompts, despite being non-destructive.
+
+### Solution
+Replaced 15 individual `Bash(...)` allow rules with a single `"Bash"` entry that
+auto-approves all Bash commands. Safety is maintained by two independent defense layers:
+
+1. **Permission deny rules** -- `rm -rf *`, `sudo *`, `git push --force*`,
+   `git reset --hard*`, `curl *|bash*`, `wget *|bash*`, plus secret file reads
+2. **PreToolUse hook** (already in plugin) -- regex inspection blocks destructive
+   commands before execution (exit code 2)
+
+Deny rules always beat allow rules in Claude Code's permission system, so destructive
+commands are blocked regardless of the broad allow.
+
+### Files changed
+- `install.sh` -- settings patch: 15 individual Bash allow rules -> `"Bash"`, added `WebSearch`/`WebFetch`; updated summary output
+- `README.md` -- permissions section rewritten to document deny-list approach and defense layers
+- `~/.claude/settings.json` -- same allow/deny change applied to live config
+- `~/w/.claude/settings.local.json` -- emptied (redundant with global config)
+
+### Notes
+- chezmoi manages `~/.claude/settings.json` -- run `chezmoi re-add ~/.claude/settings.json` after changes
+- The `PreToolUse` hook in `plugin/hooks/hooks.json` was already installed and unchanged
+- No changes to hooks, agents, commands, skills, or CLAUDE.md
+
+---
+
 ## 2026-02-15 -- Sprite env bootstrap + mypy -> pyright migration
 
 ### Done
