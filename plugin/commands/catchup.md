@@ -12,4 +12,4 @@ Summarize what changed on the current branch since it diverged from main. Follow
    - **Summary**: 3-5 bullet points explaining what was done and why
    - **Status**: any uncommitted changes, test status
 
-If already on main, say so and suggest checking out a feature branch.
+If already on main with no recent commits beyond origin/main, say so.

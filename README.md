@@ -8,12 +8,11 @@ Production-grade Claude Code configuration as a portable plugin + global setup. 
 
 | Component | Name | Description |
 |-----------|------|-------------|
-| Command | `/commit-push-pr` | Stage, commit, push, and create a PR in one step |
-| Command | `/catchup` | Summarize what changed on the current branch |
+| Command | `/catchup` | Summarize recent changes on the current branch |
 | Command | `/review` | Self-review all changes before committing |
 | Agent | `security-reviewer` | Read-only security audit (runs on Sonnet) |
 | Agent | `code-reviewer` | Read-only code quality review (runs on Sonnet) |
-| Skill | `fix-issue` | GitHub issue -> implementation -> PR workflow |
+| Skill | `fix-issue` | GitHub issue -> implementation -> commit workflow |
 
 ### Hooks (automatic)
 
@@ -22,7 +21,6 @@ Production-grade Claude Code configuration as a portable plugin + global setup. 
 | Auto-format | Write/Edit .py files | Runs `ruff format` + `ruff check --fix` |
 | Auto-test | Write/Edit test files | Runs `pytest` on changed file |
 | Block destructive | Bash commands | Blocks `rm -rf`, `sudo`, force push, pipe-to-bash |
-| Branch protection | Write/Edit on main | Blocks edits when on main/master branch |
 
 ### Global Config
 
@@ -94,5 +92,5 @@ Workflow:
 - `jq` (for install script settings merge)
 - `ruff` (for auto-format hook)
 - `pyright` (for type checking)
-- `gh` CLI (for PR/issue commands)
+- `gh` CLI (for issue commands)
 - `chezmoi` (optional, for cross-device sync)
